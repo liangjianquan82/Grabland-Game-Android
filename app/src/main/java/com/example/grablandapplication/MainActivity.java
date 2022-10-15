@@ -46,23 +46,13 @@ public class MainActivity extends AppCompatActivity {
         int x = 0;
         for (int i = 0; i < 10; i++) {
             TableRow tablerow = new TableRow(this);
-
             for (int j = 0; j < 8; j++) {
-
-
                 Button btn = new Button(this);
-
                 x += 1;
                 btn.setId(x);
                 final int id_ =  btn.getId();
                 btn.setText(String.valueOf(id_));
-                //btn.sets
 
-               // btn.setLayoutParams(params);
-
-                //btn.setWidth(50);
-                //btn.setHeight(20);
-                //tablerow.set(400);
                 btn.setOnClickListener(getOnClickDoSomething(btn));
                 tablerow.addView(btn);
             }
@@ -80,13 +70,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 adshow(button1);
                 button1.setBackgroundColor(Color.RED);
+                button1.setText("O");
                 int id = button1.getId();
                 id= id+1;
                 Button button = findViewById(id);
                 button.setBackgroundColor(Color.GREEN);
-
-
-
             }
         };
     }
@@ -95,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity.this);
         ad.setMessage(String .valueOf(button1.getId()))
                 .create();
-        ad.setPositiveButton("确定",
+        ad.setPositiveButton("Close",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -106,24 +94,5 @@ public class MainActivity extends AppCompatActivity {
         ad.show();
     }
 
-//    private void createLayoutDynamically(int n) {
-//
-//        for (int i = 0; i < n; i++) {
-//            Button myButton = new Button(this);
-//            myButton.setText("Button :" + i);
-//            myButton.setId(i);
-//            final int id_ = myButton.getId();
-//
-//            LinearLayout layout = (LinearLayout) findViewById(R.id.myDynamicLayout);
-//            layout.addView(myButton);
-//
-//            myButton.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View view) {
-//                    Toast.makeText(DynamicLayout.this,
-//                                    "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-//                            .show();
-//                }
-//            });
-//        }
-//    }
+
 }
