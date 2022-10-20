@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Grabland Application</string>
+    <string name="app_name">Grabland Game</string>
+    <string name="menu_settings">settings</string>
+    <string name="menu_exit">Exit</string>
+    <string name="rowlab">Rows:</string>
+    <string name="selectlab">Select:</string>
+
+    <string name="resetbt">Reset</string>
+    <string name="startbt">Start</string>
+
+    <string name="split_label">Split Bill?</string>
+    <string name="redlab">RED</string>
+    <string name="greenlab">GREEN</string>
+
+    <string-array name="split_array">
+        <item>6*6</item>
+        <item>8*8 ways</item>
+        <item>10*10</item>
+    </string-array>
 </resources>

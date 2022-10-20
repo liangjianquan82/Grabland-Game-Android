@@ -14,10 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button courseNameButton;
     private String academySpinnerValue;
     private String couresName;
+    private Spinner splitSpinner;
     //private KCInteractiveWebHelper kh;
 
 
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         courseTable = (TableLayout) findViewById(R.id.kccx_course_table);
+        //View view;
+       // Spinner splitSpinner = (Spinner) view.findViewById(R.id.splitSpinner);
         //courseTable.removeAllViewsInLayout();
 
 
@@ -46,19 +52,16 @@ public class MainActivity extends AppCompatActivity {
         int x = 0;
         for (int i = 0; i < 10; i++) {
             TableRow tablerow = new TableRow(this);
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 10; j++) {
                 Button btn = new Button(this);
                 x += 1;
                 btn.setId(x);
                 final int id_ =  btn.getId();
                 btn.setText(String.valueOf(id_));
-
                 btn.setOnClickListener(getOnClickDoSomething(btn));
                 tablerow.addView(btn);
             }
-
             courseTable.addView(tablerow);
-
         }
 
     }
