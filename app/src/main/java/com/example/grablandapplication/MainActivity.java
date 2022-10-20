@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.DynamicLayout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,16 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TableLayout courseTable;
     //private EditText courseNameEtext;
     //private Spinner academySpinner;
-    private Button academyButton;
-    private Button courseNameButton;
-    private String academySpinnerValue;
-    private String couresName;
-    private Spinner splitSpinner;
+    private Button resetbt;
+    private Button startbt;
+
+    private TextView redtext;
+    private TextView greentext;
     //private KCInteractiveWebHelper kh;
 
 
@@ -41,18 +43,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        courseTable = (TableLayout) findViewById(R.id.kccx_course_table);
+
+        resetbt = (Button) findViewById(R.id.resetbt);
+        startbt = (Button) findViewById(R.id.startbt);
+        redtext = (TextView) findViewById(R.id.redtext);
+        greentext = (TextView) findViewById(R.id.greentext);
+
         //View view;
        // Spinner splitSpinner = (Spinner) view.findViewById(R.id.splitSpinner);
         //courseTable.removeAllViewsInLayout();
+        resetbt.setOnClickListener(this);
+        startbt.setOnClickListener(this);
 
+    }
 
-
-
+    public void CreateView(int rows,int column){
+        courseTable = (TableLayout) findViewById(R.id.kccx_course_table);
         int x = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < rows; i++) {
             TableRow tablerow = new TableRow(this);
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < column; j++) {
                 Button btn = new Button(this);
                 x += 1;
                 btn.setId(x);
@@ -63,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
             }
             courseTable.addView(tablerow);
         }
-
     }
+
+
 
 
 
@@ -80,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 button.setBackgroundColor(Color.GREEN);
             }
         };
+    }
+
+    private void addcolor(){
+
     }
 
     private void adshow(final Button button1){
@@ -98,4 +113,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.resetbt:
+                courseTable.removeAllViews();
+                break;
+            case R.id.startbt:
+                CreateView(10, 10);
+                break;
+
+        }
+
+    }
 }
