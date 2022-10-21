@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }
-        else if((bt_totle-bt_column)<=index||index==bt_totle){
+        else if((bt_totle-bt_column)<index||index==bt_totle){
             if((index+bt_column-1)==bt_totle){
                 //上
                 colorred(index-bt_column);
@@ -251,6 +251,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 redtext.setText("0");
                 greentext.setText("0");
                 startbt.setEnabled(true);
+                redradio.setChecked(true);
+                greenradio.setChecked(false);
                 break;
             case R.id.startbt:
                 startbt.setEnabled(false);
