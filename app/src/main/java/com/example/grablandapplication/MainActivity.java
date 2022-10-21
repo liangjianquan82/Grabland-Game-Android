@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.DynamicLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton redradio;
     private RadioButton greenradio;
 
-    private int bt_rows;
-    private int bt_column;
+    private int bt_rows=8;
+    private int bt_column=8;
     private int bt_totle;
     private int [] arraylist;
     private int nowcolor;
@@ -56,19 +59,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
-
+        redtext = (TextView) findViewById(R.id.redtext);
+        greentext = (TextView) findViewById(R.id.greentext);
         resetbt = (Button) findViewById(R.id.resetbt);
         startbt = (Button) findViewById(R.id.startbt);
 
         redradio = (RadioButton) findViewById(R.id.redradio);
         greenradio = (RadioButton) findViewById(R.id.greenradio);
 
-        //View view;
-       // Spinner splitSpinner = (Spinner) view.findViewById(R.id.splitSpinner);
-        //courseTable.removeAllViewsInLayout();
         resetbt.setOnClickListener(this);
         startbt.setOnClickListener(this);
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_exit:
+                System.exit(0);
+//                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void CreateView(int rows,int column){
@@ -81,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 x += 1;
                 btn.setId(x);
                 final int id_ =  btn.getId();
-                btn.setText(String.valueOf(id_));
+                //btn.setText(String.valueOf(id_));
                 btn.setOnClickListener(getOnClickDoSomething(btn));
                 tablerow.addView(btn);
             }
@@ -92,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return new View.OnClickListener() {
             public void onClick(View v) {
                 if(getbtcolor(button1)) {
-                    adshow();
+                    adshow("already colored");
                 }
                 else {
                     if(redradio.isChecked())
@@ -209,12 +227,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void colorred(int index){
         Button button = findViewById(index);
         button.setBackgroundColor(nowcolor);
-        button.setText("O");
+        //button.setText("O");
         addinarraylist(index,setnb);
     }
-    private void adshow(){
+    private void adshow(String msg){
         final AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity.this);
-        ad.setMessage("already colored").create();
+        ad.setMessage(msg).create();
         ad.setPositiveButton("Close",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -230,10 +248,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.resetbt:
                 courseTable.removeAllViews();
+                redtext.setText("0");
+                greentext.setText("0");
+                startbt.setEnabled(true);
                 break;
             case R.id.startbt:
-                bt_rows = 10;
-                bt_column = 10;
+                startbt.setEnabled(false);
                 bt_totle = bt_rows*bt_column;
                 arraylist = new int[bt_totle];
                 CreateView(bt_rows, bt_column);
@@ -244,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void countRedandGreenNB(){
         int rednb = 0;
         int greennb = 0;
+        int zero = 0;
         for(int i=0;i<arraylist.length;i++){
             if(arraylist[i]==1){
                 rednb = rednb+1;
@@ -251,10 +272,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(arraylist[i]==2){
                 greennb= greennb+1;
             }
+            else{
+                zero = zero+1;
+            }
         }
-        redtext = (TextView) findViewById(R.id.redtext);
-        greentext = (TextView) findViewById(R.id.greentext);
-        redtext.setText(rednb);
-        greentext.setText(greennb);
+
+        redtext.setText(String.valueOf(rednb));
+        greentext.setText(String.valueOf(greennb));
+        if(zero==0){
+            if(rednb>greennb) {
+                adshow("RED is victory");
+            }
+            else if(rednb<greennb){
+                adshow("GREEN is victory");
+            }
+            else{
+                adshow("A draw");
+            }
+        }
     }
 }

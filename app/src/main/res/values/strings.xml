@@ -11,6 +11,10 @@
     <string name="split_label">Split Bill?</string>
     <string name="redlab">RED</string>
     <string name="greenlab">GREEN</string>
+    <string name="redtext">0</string>
+    <string name="greentext">0</string>
+    <string name="redradio">RED</string>
+    <string name="greenradio">GREEN</string>
 
     <string-array name="split_array">
         <item>6*6</item>

@@ -46,16 +46,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="RED"
+                    android:text="@string/redradio"
                     android:textColor="#DD2C00"
-                    app:buttonTint="#FF0000" />
+                    app:buttonTint="#FF0000"
+                    tools:ignore="TextContrastCheck" />
 
                 <RadioButton
                     android:id="@+id/greenradio"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Green"
+                    android:text="@string/greenradio"
                     android:textColor="#2E7D32"
                     app:buttonTint="#4CAF50" />
         </RadioGroup>
@@ -96,7 +97,7 @@
                 android:id="@+id/redtext"
                 android:layout_width="128dp"
                 android:layout_height="26dp"
-                android:text="0"
+                android:text="@string/redtext"
                 tools:layout_editor_absoluteY="62dp" />
 
             <TextView
@@ -106,11 +107,12 @@
                 android:text="@string/greenlab"
                 tools:layout_editor_absoluteX="177dp"
                 tools:layout_editor_absoluteY="62dp" />
+
             <TextView
                 android:id="@+id/greentext"
                 android:layout_width="128dp"
                 android:layout_height="26dp"
-                android:text="0"
+                android:text="@string/greentext"
                 tools:layout_editor_absoluteX="225dp"
                 tools:layout_editor_absoluteY="62dp" />
 
