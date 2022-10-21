@@ -6,6 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 import android.widget.Spinner;
@@ -34,6 +37,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView redtext;
     private TextView greentext;
+
+    private RadioButton redradio;
+    private RadioButton greenradio;
+
+    private int bt_rows;
+    private int bt_column;
+    private int bt_totle;
+    private int [] arraylist;
+    private int nowcolor;
+    private int setnb;
     //private KCInteractiveWebHelper kh;
 
 
@@ -46,8 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         resetbt = (Button) findViewById(R.id.resetbt);
         startbt = (Button) findViewById(R.id.startbt);
-        redtext = (TextView) findViewById(R.id.redtext);
-        greentext = (TextView) findViewById(R.id.greentext);
+
+        redradio = (RadioButton) findViewById(R.id.redradio);
+        greenradio = (RadioButton) findViewById(R.id.greenradio);
 
         //View view;
        // Spinner splitSpinner = (Spinner) view.findViewById(R.id.splitSpinner);
@@ -74,33 +88,133 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             courseTable.addView(tablerow);
         }
     }
-
-
-
-
-
-    View.OnClickListener getOnClickDoSomething(final Button button1)  {
+    View.OnClickListener getOnClickDoSomething(Button button1)  {
         return new View.OnClickListener() {
             public void onClick(View v) {
-                adshow(button1);
-                button1.setBackgroundColor(Color.RED);
-                button1.setText("O");
-                int id = button1.getId();
-                id= id+1;
-                Button button = findViewById(id);
-                button.setBackgroundColor(Color.GREEN);
+                if(getbtcolor(button1)) {
+                    adshow();
+                }
+                else {
+                    if(redradio.isChecked())
+                    {
+                        nowcolor = Color.RED;
+                        setnb = 1;
+                        redradio.setChecked(false);
+                        greenradio.setChecked(true);
+                    }
+                    else if(greenradio.isChecked()){
+                        nowcolor = Color.GREEN;
+                        setnb = 2;
+                        redradio.setChecked(true);
+                        greenradio.setChecked(false);
+                    }
+                    int id = button1.getId();
+                    addcolor(id);
+                    countRedandGreenNB();
+                }
             }
         };
     }
-
-    private void addcolor(){
-
+    private void addinarraylist(int index,int setnb){
+        arraylist[index-1] = setnb;
     }
+    private boolean getbtcolor( final Button button1){
+        boolean state = false;
+        int index = button1.getId();
+        int nub = arraylist[index-1];
 
-    private void adshow(final Button button1){
+        if(nub==1||nub==2){
+            state = true;
+        }
+        else {
+            state = false;
+        }
+        return state;
+    }
+    private void addcolor(int index){
+        colorred(index);
+        if(index<=bt_column){
+             if(index==1){
+                //右
+                colorred(index+1);
+                //下
+                colorred(index+bt_column);
+            }
+            else if(index==bt_column){
+                //下
+                colorred(index+bt_column);
+                //左
+                colorred(index-1);
+
+            }
+            else{//左
+                 colorred(index-1);
+                 //下
+                 colorred(index+bt_column);
+                 //右
+                 colorred(index+1);
+            }
+
+        }
+        else if((bt_totle-bt_column)<=index||index==bt_totle){
+            if((index+bt_column-1)==bt_totle){
+                //上
+                colorred(index-bt_column);
+                //右
+                colorred(index+1);
+            }
+            else if(index==bt_totle){
+                //上
+                colorred(index-bt_column);
+                //左
+                colorred(index-1);
+            }
+            else {
+                //上
+                colorred(index-bt_column);
+                //左
+                colorred(index-1);
+                //右
+                colorred(index+1);
+            }
+        }
+        else{
+            int x = index % bt_column;
+            if (x == 0) {
+                //上
+                colorred(index-bt_column);
+                //下
+                colorred(index+bt_column);
+                //左
+                colorred(index-1);
+            } else if (x == 1) {
+                //上
+                colorred(index-bt_column);
+                //下
+                colorred(index+bt_column);
+                //右
+                colorred(index+1);
+            }else{
+                //上
+                colorred(index-bt_column);
+                //下
+                colorred(index+bt_column);
+                //左
+                colorred(index-1);
+                //右
+                colorred(index+1);
+            }
+        }
+    }
+    private void colorred(int index){
+        Button button = findViewById(index);
+        button.setBackgroundColor(nowcolor);
+        button.setText("O");
+        addinarraylist(index,setnb);
+    }
+    private void adshow(){
         final AlertDialog.Builder ad = new AlertDialog.Builder(MainActivity.this);
-        ad.setMessage(String .valueOf(button1.getId()))
-                .create();
+        ad.setMessage("already colored").create();
         ad.setPositiveButton("Close",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -111,8 +225,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ad.show();
     }
-
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -120,10 +232,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 courseTable.removeAllViews();
                 break;
             case R.id.startbt:
-                CreateView(10, 10);
+                bt_rows = 10;
+                bt_column = 10;
+                bt_totle = bt_rows*bt_column;
+                arraylist = new int[bt_totle];
+                CreateView(bt_rows, bt_column);
                 break;
 
         }
-
+    }
+    private void countRedandGreenNB(){
+        int rednb = 0;
+        int greennb = 0;
+        for(int i=0;i<arraylist.length;i++){
+            if(arraylist[i]==1){
+                rednb = rednb+1;
+            }
+            else if(arraylist[i]==2){
+                greennb= greennb+1;
+            }
+        }
+        redtext = (TextView) findViewById(R.id.redtext);
+        greentext = (TextView) findViewById(R.id.greentext);
+        redtext.setText(rednb);
+        greentext.setText(greennb);
     }
 }

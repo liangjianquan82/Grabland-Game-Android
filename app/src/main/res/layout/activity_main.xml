@@ -24,7 +24,8 @@
         android:layout_width="410dp"
         android:layout_height="100dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="410dp"
@@ -33,7 +34,31 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="-2dp">
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:id="@+id/redradio"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="RED"
+                    android:textColor="#DD2C00"
+                    app:buttonTint="#FF0000" />
+
+                <RadioButton
+                    android:id="@+id/greenradio"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Green"
+                    android:textColor="#2E7D32"
+                    app:buttonTint="#4CAF50" />
+        </RadioGroup>
             <Button
                 android:id="@+id/resetbt"
                 android:layout_width="wrap_content"
@@ -58,14 +83,12 @@
             android:orientation="horizontal">
 
 
-
             <TextView
                 android:id="@+id/redlab"
-                android:layout_width="41dp"
+                android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:text="@string/redlab"
-                app:layout_constraintBottom_toBottomOf="@+id/redtext"
-                app:layout_constraintTop_toTopOf="@+id/redtext"
+
                 app:layout_constraintVertical_bias="0.0"
                 tools:layout_editor_absoluteX="3dp" />
 
@@ -73,13 +96,12 @@
                 android:id="@+id/redtext"
                 android:layout_width="128dp"
                 android:layout_height="26dp"
-                android:layout_marginStart="4dp"
-                app:layout_constraintStart_toEndOf="@+id/redlab"
+                android:text="0"
                 tools:layout_editor_absoluteY="62dp" />
 
             <TextView
                 android:id="@+id/greenlab"
-                android:layout_width="48dp"
+                android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:text="@string/greenlab"
                 tools:layout_editor_absoluteX="177dp"
@@ -88,6 +110,7 @@
                 android:id="@+id/greentext"
                 android:layout_width="128dp"
                 android:layout_height="26dp"
+                android:text="0"
                 tools:layout_editor_absoluteX="225dp"
                 tools:layout_editor_absoluteY="62dp" />
 
