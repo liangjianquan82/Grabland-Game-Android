@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton greenradio;
 
     private int bt_rows=8;
-    private int bt_column=8;
+    private int bt_column=6;
     private int bt_totle;
     private int [] arraylist;
     private int nowcolor;
